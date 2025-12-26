@@ -147,3 +147,10 @@ def parse_duration(duration_str):
 
 # Test it
 
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--schedule_block", type=int, default=1)
+    args = parser.parse_args()
+
+    collect_block(args.schedule_block)
