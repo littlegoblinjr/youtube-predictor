@@ -5,7 +5,7 @@ from googleapiclient.discovery import build
 import requests
 from datetime import datetime
 
-API_KEY = "AIzaSyBS4rltUpL9fijtVnvPsz7Hql27JD-N6L4"
+API_KEY = os.getenv('API_KEY')
 blocks = {
     1: ['minecraft tutorial', 'GTA 6', 'GTA 5', 'fortnite tips', 'valorant guide', 'roblox hacks',
         'minecraft survival', 'minecraft houses', 'minecraft redstone', 'minecraft mods',
@@ -121,7 +121,7 @@ def collect_block(block_num):
     # Step 5: Save COMPLETE dataset
     df = pd.DataFrame(all_videos)
     os.makedirs('data', exist_ok=True)
-    filename = f"batch_block{block_num}_{datetime.now().strftime('%Y%m%d_%H%M')}.csv"
+    filename = f"data/batch_block{block_num}_{datetime.now().strftime('%Y%m%d_%H%M')}.csv"
     df.to_csv(filename, index=False)
     
     print(f"✅ Block {block_num}: {len(df)} videos → {filename}")
