@@ -41,7 +41,7 @@ blocks = {
 all_videos = []
 def collect_block(block_num):
     youtube = build('youtube', 'v3', developerKey=API_KEY)
-    youtube = build('youtube', 'v3', developerKey=API_KEY)
+    
     
     # DYNAMIC ROTATION - Uses ALL 100 queries!
     all_queries = []
@@ -64,7 +64,7 @@ def collect_block(block_num):
             part='id,snippet', 
             q=query,
             type='video', 
-            maxResults=50, 
+            maxResults=30, 
             order='viewCount'
         )
         response = request.execute()
