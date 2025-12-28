@@ -41,7 +41,18 @@ blocks = {
 all_videos = []
 def collect_block(block_num):
     youtube = build('youtube', 'v3', developerKey=API_KEY)
-    queries = blocks[block_num][:25]  # Full 25 queries
+    youtube = build('youtube', 'v3', developerKey=API_KEY)
+    
+    # DYNAMIC ROTATION - Uses ALL 100 queries!
+    all_queries = []
+    for block_queries in blocks.values():
+        all_queries.extend(block_queries)
+    
+    day_offset = (datetime.now().day * 4 + block_num - 1) % len(all_queries)
+    queries = all_queries[day_offset:day_offset+4]
+    
+    print(f"🔍 Block {block_num}: {queries} (Day {datetime.now().day})")
+      # Full 25 queries
     all_videos = []
     
     # Step 1: Search videos
