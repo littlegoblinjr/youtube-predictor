@@ -72,14 +72,19 @@ def collect_block(block_num):
         for item in response['items']:
             video_id = item['id']['videoId']
             video_ids.append(video_id)  # COLLECT IDs
+            thumbnails = item['snippet'].get('thumbnails', {})
+
             all_videos.append({
-                'video_id': video_id,
-                'title': item['snippet']['title'],
-                'query': query,
-                'channel_id': item['snippet']['channelId'],
-                'channel_title': item['snippet']['channelTitle'],
-                'search_timestamp': datetime.now().isoformat()
-            })
+                    'video_id': video_id,
+                    'title': item['snippet']['title'],
+                    'query': query,
+                    'channel_id': item['snippet']['channelId'],
+                    'channel_title': item['snippet']['channelTitle'],
+                    'thumbnail_default': thumbnails.get('default', {}).get('url'),
+                    'thumbnail_medium': thumbnails.get('medium', {}).get('url'),
+                    'thumbnail_high': thumbnails.get('high', {}).get('url'),
+                    'search_timestamp': datetime.now().isoformat()
+                })
     
     # Step 2: BATCH FETCH views + subs (SAME BLOCK)
     print(f"📊 Fetching stats for {len(video_ids)} videos...")
